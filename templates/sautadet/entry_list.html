@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Feed entries</h1>
+
+<div class="btn-group">
+    <a href="{% url 'sautadet-feed_edit' feed.pk %}" class="btn btn-default">Modify the feed</a>
+    <a href="{% url 'sautadet-feed_delete' feed.pk %}" class="btn btn-default">Delete the feed</a>
+    <a href="{% url 'sautadet-feed_flush' feed.pk %}" class="btn btn-default">Flush all entries</a>
+    <a href="{% url 'sautadet-feed_read' feed.pk %}" class="btn btn-default">Mark all entries as read</a>
+</div>
+
+<table class="table">
+    <thead><tr><th>Title</th><th>Score</th><th>Date</th></thead>
+    <tbody>
+    {% for entry in object_list %}
+    <tr{% if entry.read %} class="success"{% endif %}>
+        <td><a href="{{ entry.url }}">{{ entry.title }}</a></td>
+        <td>{{ entry.score|floatformat }}</td>
+        <td>{{ entry.date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

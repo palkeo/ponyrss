@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if entry %}
+<h1><a href="{{ entry.url }}">{{ entry.title }}</a></h1>
+<div class="well well-sm">
+    <span class="badge pull-right" title="{{ entry.feed.base_score }} + {{ entry.feed.mult_score }} × {{ entry.score }}">{{ entry.total_score|floatformat }}</span>
+    Published {{ entry.date }}
+    in feed <a href="{% url 'sautadet-feed_entries' entry.feed.pk %}">{{ entry.feed.title }}</a>
+</div>
+<div class="entry-content">
+    {{ entry.content|safe }}
+</div>
+{% else %}
+<h1>Nothing left to read.</h1>
+<p>Too bad, you should add more feeds (with low scores), really !</p>
+{% endif %}
+{% endblock %}
