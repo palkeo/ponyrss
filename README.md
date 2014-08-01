@@ -1,4 +1,4 @@
-sautadet
+PonyRSS
 ========
 
 A weird RSS reader.
