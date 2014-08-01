@@ -1,4 +1,4 @@
-from sautadet.spouts.rss import Spout as RSSpout
+from ponyrss.spouts.rss import Spout as RSSpout
 import requests
 import json
 from urllib.parse import urlparse

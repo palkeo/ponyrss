@@ -1,5 +1,5 @@
 from readability import Document
-from sautadet import models
+from ponyrss import models
 import requests
 import json
 from django import forms

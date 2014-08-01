@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from sautadet import models
-from sautadet import spouts
+from ponyrss import models
+from ponyrss import spouts
 from multiprocessing import Pool
 
 def update_feed(feed):

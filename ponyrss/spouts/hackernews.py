@@ -1,5 +1,5 @@
 from readability import Document
-from sautadet import models
+from ponyrss import models
 import requests
 from lxml.html import html5parser
 from urllib.parse import urljoin

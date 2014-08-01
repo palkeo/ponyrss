@@ -6,9 +6,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView
-from sautadet import models
-from sautadet import forms
-from sautadet import spouts
+from ponyrss import models
+from ponyrss import forms
+from ponyrss import spouts
 
 def home(request):
     try:
@@ -17,14 +17,14 @@ def home(request):
         entry = None
     if entry.read:
         entry = None
-    return render(request, 'sautadet/home.html', {'entry': entry})
+    return render(request, 'ponyrss/home.html', {'entry': entry})
 
 class Feeds(ListView):
     model = models.Feed
 feeds = Feeds.as_view()
 
 class FeedAdd(SessionWizardView):
-    template_name = 'sautadet/feed_add.html'
+    template_name = 'ponyrss/feed_add.html'
 
     def get_form(self, step=None, data=None, files=None):
         " Not very elegant, more of a hack... "
@@ -55,7 +55,7 @@ class FeedAdd(SessionWizardView):
                 tag.save()
             feed.tags.add(tag)
 
-        return HttpResponseRedirect(reverse('sautadet-feeds'))
+        return HttpResponseRedirect(reverse('ponyrss-feeds'))
 
 feed_add = FeedAdd.as_view(
     [forms.SpoutSelectForm, forms.EmptyForm, forms.FeedAddForm]
@@ -69,7 +69,7 @@ feed_edit = FeedEdit.as_view()
 
 class FeedDelete(DeleteView):
     model = models.Feed
-    success_url = reverse_lazy('sautadet-feeds')
+    success_url = reverse_lazy('ponyrss-feeds')
 
 feed_delete = FeedDelete.as_view()
 
@@ -90,15 +90,15 @@ feed_entries = FeedEntries.as_view()
 def feed_flush(request, pk):
     feed = get_object_or_404(models.Feed, pk=pk)
     feed.entries.all().delete()
-    return HttpResponseRedirect(reverse('sautadet-feeds'))
+    return HttpResponseRedirect(reverse('ponyrss-feeds'))
 
 def feed_read(request, pk):
     feed = get_object_or_404(models.Feed, pk=pk)
     feed.entries.all().update(read=True)
-    return HttpResponseRedirect(reverse('sautadet-feeds'))
+    return HttpResponseRedirect(reverse('ponyrss-feeds'))
 
 def read(request, pk):
     entry = get_object_or_404(models.Entry, pk=pk)
     entry.read = True
     entry.save()
-    return HttpResponseRedirect(reverse('sautadet-home'))
+    return HttpResponseRedirect(reverse('ponyrss-home'))

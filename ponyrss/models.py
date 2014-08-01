@@ -28,7 +28,7 @@ class Feed(models.Model):
         return ', '.join(tag.name for tag in self.tags.all())
 
     def get_absolute_url(self):
-        return reverse('sautadet-feed_entries', args=[self.id])
+        return reverse('ponyrss-feed_entries', args=[self.id])
 
     class Meta:
         ordering = ('-base_score',)

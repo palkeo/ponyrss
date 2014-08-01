@@ -3,7 +3,7 @@ import datetime
 import time
 from django import forms
 import feedparser
-from sautadet import models
+from ponyrss import models
 
 feedparser.SANITIZE_HTML = 0
 

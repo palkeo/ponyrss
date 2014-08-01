@@ -1,5 +1,5 @@
 from django import forms
-from sautadet import spouts
+from ponyrss import spouts
 
 SPOUTS_CHOICES = [(i, i) for i in dir(spouts) if not i.startswith('_')]
 

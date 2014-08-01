@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Feeds</h1>
-<p><a class="btn btn-default" href="{% url 'sautadet-feed_add' %}"><span class="glyphicon glyphicon-plus"></span> Add a feed</a></p>
+<p><a class="btn btn-default" href="{% url 'ponyrss-feed_add' %}"><span class="glyphicon glyphicon-plus"></span> Add a feed</a></p>
 <table class="table">
     <thead><tr><th>Name</th><th>Spout</th><th>Entries</th><th>Scoring</th><th>Tags</th></thead>
     <tbody>
     {% for feed in object_list %}
     <tr>
-        <td><a href="{% url 'sautadet-feed_entries' feed.id %}">{{ feed.title }}</a></td>
+        <td><a href="{% url 'ponyrss-feed_entries' feed.id %}">{{ feed.title }}</a></td>
         <td>{{ feed.spout }}</td>
         <td>{{ feed.entries.count }}</td>
         <td>{{ feed.base_score|floatformat }} + {{ feed.mult_score|floatformat }} × s</td>
