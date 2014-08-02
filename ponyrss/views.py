@@ -12,10 +12,10 @@ from ponyrss import spouts
 
 def home(request):
     try:
-        entry = models.Entry.objects.all()[0]
-    except IndexError:
-        entry = None
-    if entry.read:
+        entry = models.Entry.objects.first()
+        if entry.read:
+            entry = None
+    except models.Entry.DoesNotExist:
         entry = None
     return render(request, 'ponyrss/home.html', {'entry': entry})
 
@@ -75,11 +75,11 @@ feed_delete = FeedDelete.as_view()
 
 class FeedEntries(ListView):
     model = models.Entry
-    
+
     def get_queryset(self):
         feed = get_object_or_404(models.Feed, id=self.kwargs['pk'])
         return feed.entries.all().order_by('-date')
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['feed'] = get_object_or_404(models.Feed, id=self.kwargs['pk'])
